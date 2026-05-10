@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+}
+/* reset */
+button {
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+:root {
+  /* ### Primary */
+  --Purple-600: hsl(238, 40%, 52%);
+  --Pink-400: hsl(358, 79%, 66%);
+  --Purple-200: hsl(239, 57%, 85%);
+  --Pink-200: hsl(357, 100%, 86%);
+
+  /* ### Neutral */
+
+  --Grey-800: hsl(212, 24%, 26%);
+  --Grey-500: hsl(211, 10%, 45%);
+  --Grey-100: hsl(223, 19%, 93%);
+  --Grey-50: hsl(228, 33%, 97%);
+  --White: hsl(0, 100%, 100%);
+}
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+/* App */
+.mainApp {
+  background-color: var(--Grey-50);
+  /* height: 100%; */
+  width: 100%;
+  padding: 10% 5%;
+}
+/* Comments */
+.main_Comments{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+/* SingleComment */
+.single_Comment {
+  background-color: var(--White);
+  padding: 4%;
+  border-radius: 10px;
+}
+.comment__Header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.comment__Header img {
+  width: 40px;
+}
+.comment__Header h4 {
+  color: var(--Grey-800);
+}
+.comment__Header p {
+  color: var(--Grey-500);
+}
+.single_Comment article {
+  color: var(--Grey-500);
+  padding: 15px 0;
+}
+.single_Comment footer {
+  display: flex;
+  justify-content: space-between;
+}
+.reactionCount {
+  background-color: hsl(238, 100%, 87%);
+  border-radius: 10px;
+}
+.reactionCount img{
+  /* Helped me to make image black */
+  filter: brightness(0);
+}
+.reaction_minus,
+.reaction_plus {
+  padding: 10px;
+}
+.reaction_minus img {
+  vertical-align: middle; /* Important to make the image center inside btn */
+}
+.commentReply img {
+  width: 21px;
+  height: 21px;
+}
+.commentReply {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.replies{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: end;
+}
+.replies > .single_Comment{
+  width: 90%;
+  background-color: var(--Grey-100);
+}
+.EditCommentBTN{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.EditCommentBTN img{
+  width: 20px;
+  height: 20px;
+}
+.EditCommentBTN p{
+  font-size: large;
+  font-weight: 600;
+}
+.EditCommentBTN button{
+  display: flex;
+  gap: 1.5px;
+}

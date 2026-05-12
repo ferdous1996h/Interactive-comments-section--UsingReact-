@@ -43,9 +43,11 @@ body,
   /* height: 100%; */
   width: 100%;
   padding: 10% 5%;
+  padding-bottom: 190px;
+  padding-top: 50px;
 }
 /* Comments */
-.main_Comments{
+.main_Comments {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -82,7 +84,7 @@ body,
   background-color: hsl(238, 100%, 87%);
   border-radius: 10px;
 }
-.reactionCount img{
+.reactionCount img {
   /* Helped me to make image black */
   filter: brightness(0);
 }
@@ -102,30 +104,102 @@ body,
   gap: 5px;
   align-items: center;
 }
-.replies{
+.replies {
   display: flex;
   flex-direction: column;
   gap: 15px;
   align-items: end;
+  /* border: 2px solid red; */
 }
-.replies > .single_Comment{
+.replies > .single_Comment-Wrapper {
   width: 90%;
-  background-color: var(--Grey-100);
+  min-width: 400px;
 }
-.EditCommentBTN{
+.replies >.single_Comment-Wrapper> .single_Comment{
+  background-color:var(--Grey-100)
+}
+.EditCommentBTN {
   display: flex;
   gap: 8px;
   align-items: center;
 }
-.EditCommentBTN img{
+.EditCommentBTN img {
   width: 20px;
   height: 20px;
 }
-.EditCommentBTN p{
+.EditCommentBTN p {
   font-size: large;
   font-weight: 600;
 }
-.EditCommentBTN button{
+.EditCommentBTN button {
   display: flex;
   gap: 1.5px;
+}
+/* SendMsg.jsx */
+.sendMSG {
+  position: fixed;
+  bottom: 0px;
+  /* left: 15px;
+  right: 15px; */
+  background-color: var(--White);
+  border-radius: 12px;
+  /* margin: 15px; */
+  padding: 15px;
+  width: 90%;
+  border: 2px solid rgb(0, 255, 200);
+}
+.sendMSG img {
+  width: 40px;
+  align-self: center;
+}
+.sendMSG_Bottom,
+.ReplyedMSGBox {
+  display: flex;
+  justify-content: space-between;
+}
+.sendMSG_Bottom button {
+  background-color: var(--Purple-600);
+  color: var(--White);
+  font-size: large;
+  padding: 10px 15px;
+  border-radius: 15px;
+}
+.sendMSG_TextArea {
+  width: 100%;
+  height: 100px;
+  border: 2px solid rgb(173, 171, 171);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+/* ReplyedMSGBox */
+.ReplyedMSGBox {
+  background-color: var(--White);
+  padding: 15px;
+  justify-content: space-between;
+  margin-top: 12px;
+  border-radius: 12px;
+}
+.ReplyedMSGBox form{
+  width: 100%;
+
+}
+.ReplyedMSGBox button {
+  background-color: var(--Purple-600);
+  color: var(--White);
+  font-size: small;
+  padding: 10px 15px;
+  border-radius: 15px;
+}
+.ReplyedMSGBox textarea{
+  width: 100%;
+  height: 70px;
+  border: 2px solid rgb(173, 171, 171);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+.ReplyedMSGBox img {
+  align-self: center;
+  width: 30px;
 }

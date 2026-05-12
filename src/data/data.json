@@ -63,7 +63,8 @@
           }
         }
       ]
-    },{
+    },
+    {
       "id": 946,
       "content": "This is an external test comment",
       "createdAt": "2 days ago",

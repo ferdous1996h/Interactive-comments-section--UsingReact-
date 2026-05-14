@@ -37,6 +37,9 @@ body,
   height: 100%;
   width: 100%;
 }
+#root{
+  position: relative;
+}
 /* App */
 .mainApp {
   background-color: var(--Grey-50);
@@ -202,4 +205,62 @@ body,
 .ReplyedMSGBox img {
   align-self: center;
   width: 30px;
+}
+.editReplyWrapper{
+  /* border: 2px solid red; */
+  padding-top: 5px;
+}
+.editReplyWrapper textarea{
+  width: 100%;
+  height: 90px;
+  padding: 5px;
+  border-radius: 8px;
+}
+.updateComment{
+  background-color: var(--Purple-600);
+  color: var(--White);
+  font-size: small;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.modalWrapper{
+  position: fixed;
+  background-color: rgba(75, 75, 75, 0.265);
+  z-index: 100;
+  inset: 0;
+}
+.modal{
+  background: var(--White);
+  position: absolute;
+  z-index: 200;
+  /* width: 40%; */
+  width: 420px;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%,-50%);
+  border-radius: 12px;
+  padding:  35px;
+}
+.modal_top p{
+  color: var(--Grey-500);
+  padding-top: 20px;
+  line-height: 1.6;
+}
+.modalBottom{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 22px;
+}
+.modalBottom button{
+  padding: 12px 25px;
+  font-size: large;
+  border-radius: 12px;
+}
+.cancelDelete{
+  background-color: var(--Grey-500);
+  color: var(--White);
+}
+.confirmdelete{
+  background-color: var(--Pink-400);
+  color: var(--White);
 }

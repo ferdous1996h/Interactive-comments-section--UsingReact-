@@ -3,7 +3,7 @@ import LikeCounter from '../features/LikeCounter';
 import ReplyButton from '../utils/ReplyButton';
 import EditCommentBTN from '../utils/EditCommentBTN';
 import ReplyedMSGBox from './ReplyedMSGBox';
-
+import EditReply from './EditReply';
 import { useContext } from 'react';
 import { EditContext } from '../contexts/EditContext';
 export default function SingleComment({
@@ -17,8 +17,9 @@ export default function SingleComment({
 }) {
   const commentOwner = Boolean(username === currentUser?.username);
   const [replyBack, setReplyBack] = useState({ state: false, uniqueID: '' });
-  const { data, setData } = useContext(EditContext);
+  const [editCommentID, setEditCommentID] = useState(null);
 
+  const { data, setData } = useContext(EditContext);
   function mutateReply(comments, targetID, updater) {
     for (const subComment of comments) {
       if (subComment.id === targetID) {
@@ -47,7 +48,7 @@ export default function SingleComment({
     console.log(replyData);
     if (!replyData) return;
     const replyDOBJ = {
-      id: new Date(),
+      id: JSON.stringify(new Date()),
       content: replyData.toString().trim(),
       createdAt: new Date().toLocaleTimeString(),
       score: 0,
@@ -59,13 +60,22 @@ export default function SingleComment({
         username: data.currentUser.username,
       },
     };
-    console.log(replyDOBJ);
     const newDATA = { ...data };
     mutateReply(newDATA.comments, replyBack.uniqueID, replyDOBJ);
-    console.log(newDATA);
     setData(newDATA);
     replyBack.state = false;
   }
+  if (id === editCommentID)
+    return (
+      <EditReply
+        img={img}
+        username={username}
+        createdAt={createdAt}
+        content={content}
+        id={id}
+        setEditCommentID={setEditCommentID}
+      />
+    );
   return (
     <section className="single_Comment-Wrapper">
       <div className="single_Comment">
@@ -78,14 +88,17 @@ export default function SingleComment({
         <footer>
           <LikeCounter score={score} />
           {commentOwner ? (
-            <EditCommentBTN id={id} />
+            <EditCommentBTN setEditCommentID={setEditCommentID} id={id} />
           ) : (
-            <ReplyButton setReplyBack={setReplyBack} id={id} />
+            <ReplyButton setReplyBack={setReplyBack} id={id}  />
           )}
         </footer>
       </div>
       {replyBack.state ? (
-        <ReplyedMSGBox handleReplyMSG={handleReplyMSG} data={data} />
+        <ReplyedMSGBox
+          handleReplyMSG={handleReplyMSG}
+          data={data}
+        />
       ) : null}
     </section>
   );

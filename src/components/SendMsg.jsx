@@ -1,4 +1,4 @@
-export default function SendMsg({ image, user, data, setData }) {
+export default function SendMsg({ image, user, data, setData, scrollLast }) {
   function handleSendMSG(formData) {
     const msgData = formData.get('commentText');
     const newData = { ...data };
@@ -25,7 +25,9 @@ export default function SendMsg({ image, user, data, setData }) {
         ></textarea>
         <div className="sendMSG_Bottom">
           <img src={image} alt="" />
-          <button type="submit">Send</button>
+          <button type="submit" onClick={scrollLast}>
+            Send
+          </button>
         </div>
       </form>
     </section>

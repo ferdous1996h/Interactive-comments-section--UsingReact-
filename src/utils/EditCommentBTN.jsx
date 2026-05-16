@@ -11,11 +11,11 @@ export default function EditCommentBTN({ id, setEditCommentID }) {
   return (
     <div className="EditCommentBTN">
       <button className="Delete" onClick={() => setModalOn(true)}>
-        <img src="/public/images/icon-delete.svg" alt="" />
+        <img src="/images/icon-delete.svg" alt="" />
         <p style={{ color: '#DC6D6D' }}>Delete</p>
       </button>
       <button className="edit" onClick={() => setEditCommentID(id)}>
-        <img src="/public/images/icon-edit.svg" alt="" />
+        <img src="/images/icon-edit.svg" alt="" />
         <p style={{ color: '#7C7AC0' }}>Edit</p>
       </button>
       {modalOn ? (

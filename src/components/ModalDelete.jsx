@@ -1,8 +1,10 @@
 import { createPortal } from 'react-dom';
 
 export default function ModalDelete({ id, handleComment, revertModal }) {
+  const portalRoot = document.querySelector('.portal_Root');
+  if (!portalRoot) return null;
   return createPortal(
-    <section className="modalWrapper">
+    <section className="modalWrapper" role="dialog" aria-modal="true">
       <div className="modal">
         <div className="modal_top">
           <h2>Delete comment</h2>

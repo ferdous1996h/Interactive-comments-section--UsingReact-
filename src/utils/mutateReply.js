@@ -1,17 +1,19 @@
 export default function mutateReply(comments, targetID, updater) {
-  const newComments = comments;
-  for (const subComment of newComments) {
-    if (subComment.id === targetID) {
-      if (!subComment.replies) {
-        subComment.replies = [];
+  return comments.map(comment => {
+    if (comment.id === targetID) {
+      return {
+        ...comment,
+        replies: [...(comment.replies || []), updater],
+      };
+    } else if (comment?.replies?.length) {
+      const nextReply = mutateReply(comment?.replies, targetID, updater);
+      if (nextReply !== comment?.replies) {
+        return {
+          ...comment,
+          replies: nextReply,
+        };
       }
-      subComment.replies.push(updater);
-      return newComments;
     }
-    if (subComment.replies?.length) {
-      const found = mutateReply(subComment.replies, targetID, updater);
-      if (found) return newComments;
-    }
-  }
-  return false;
+    return comment;
+  });
 }

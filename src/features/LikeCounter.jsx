@@ -1,21 +1,31 @@
-import { useState } from 'react';
-
-export default function LikeCounter({ score }) {
-  const [likeCount, setLikeCount] = useState(score);
+import mutateLikeCount from '../utils/mutateLikeCount';
+export default function LikeCounter({ score, setData, id }) {
+  function updateScore(info) {
+    if (info < 0) return;
+    setData(prev => {
+      const newComment = mutateLikeCount(prev.comments, id, info);
+      return {
+        ...prev,
+        comments: newComment,
+      };
+    });
+  }
   return (
     <div className="reactionCount">
       <button
         className="reaction_minus"
-        onClick={() => setLikeCount(prev => Math.max(prev - 1, 0))}
+        aria-label="decrease score"
+        onClick={() => updateScore(score - 1)}
       >
         <img src="/images/icon-minus.svg" alt="" />
       </button>
-      {likeCount}
+      {score}
       <button
         className="reaction_plus"
-        onClick={() => setLikeCount(prev => prev + 1)}
+        aria-label="Increase score"
+        onClick={() => updateScore(score + 1)}
       >
-        <img src="/public/images/icon-plus.svg" alt="" />
+        <img src="/images/icon-plus.svg" alt="" />
       </button>
     </div>
   );

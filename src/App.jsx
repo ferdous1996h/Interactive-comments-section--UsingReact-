@@ -11,14 +11,14 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('chatHistory', JSON.stringify(data));
   }, [data]);
-
+console.log(data)
   const secRef = useRef(null);
   function handleComment(info) {
     const deleteData = info.delete;
     if (!deleteData) return;
     // ## If new value depend on previous value or state always use functional update
     setData(prev => {
-      const newComment = deleteByID(data.comments, deleteData);
+      const newComment = deleteByID(prev.comments, deleteData);
       return {
         ...prev,
         comments: newComment,
@@ -32,7 +32,7 @@ export default function App() {
     });
   }, [data.comments.length]);
   return (
-    <EditContext.Provider value={{ handleComment, data, setData }}>
+    <EditContext value={{ handleComment, data, setData }}>
       <main className="mainApp">
         <Comments data={data} />
         <SendMsg
@@ -43,6 +43,6 @@ export default function App() {
         />
       </main>
       <div className="lastScroll" ref={secRef}></div>
-    </EditContext.Provider>
+    </EditContext>
   );
 }

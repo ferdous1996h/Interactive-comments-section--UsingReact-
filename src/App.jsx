@@ -3,36 +3,35 @@ import { EditContext } from './contexts/EditContext';
 import Comments from './components/Comments';
 import info from '../src/data/data.json';
 import SendMsg from './components/SendMsg';
+import { deleteByID } from './utils/deleteByID';
 export default function App() {
-  const pastData = JSON.parse(localStorage.getItem('chatHistory'));
-  const connectedData = pastData ? pastData : info;
-  const [data, setData] = useState(connectedData);
+  const grabPastDATA = JSON.parse(localStorage.getItem('chatHistory'));
+  const connectedDATA = grabPastDATA ? grabPastDATA : info;
+  const [data, setData] = useState(connectedDATA);
   useEffect(() => {
     localStorage.setItem('chatHistory', JSON.stringify(data));
   }, [data]);
 
-  function deleteByID(comments, matchID) {
-    return comments
-      .filter(comment => comment.id !== matchID)
-      .map(comment => {
-        if (comment.replies) {
-          return {
-            ...comment,
-            replies: deleteByID(comment.replies, matchID),
-          };
-        }
-        return comment;
-      });
-  }
   const secRef = useRef(null);
   function handleComment(info) {
     const deleteData = info.delete;
-    if (deleteData) {
-      const newData = { ...data };
-      newData.comments = deleteByID(newData.comments, deleteData);
-      setData(newData);
-    }
+    if (!deleteData) return;
+    // ## If new value depend on previous value or state always use functional update
+    setData(prev => {
+      const newComment = deleteByID(data.comments, deleteData);
+      return {
+        ...prev,
+        comments: newComment,
+      };
+    });
   }
+  // useEffect(() => {
+  //   secRef.current.scrollIntoView({
+  //     behavior: 'smooth',
+  //     block: 'end',
+  //   });
+  // }, [data.comments.length]);
+
   useEffect(() => {
     secRef.current.scrollIntoView({
       behavior: 'smooth',

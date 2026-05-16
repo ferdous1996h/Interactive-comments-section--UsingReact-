@@ -11,7 +11,7 @@ const mutateNestedEdit = function (comments, id, info) {
       if (nextReply !== comment?.replies) {
         return {
           ...comment,
-          content: info,
+          replies: nextReply,
         };
       }
     }

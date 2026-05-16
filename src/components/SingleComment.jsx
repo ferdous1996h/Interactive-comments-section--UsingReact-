@@ -4,55 +4,28 @@ import ReplyButton from '../utils/ReplyButton';
 import EditCommentBTN from '../utils/EditCommentBTN';
 import ReplyedMSGBox from './ReplyedMSGBox';
 import EditReply from './EditReply';
+import mutateReply from '../utils/mutateReply';
 import { useContext } from 'react';
 import { EditContext } from '../contexts/EditContext';
-export default function SingleComment({
-  img,
-  username,
-  createdAt,
-  content,
-  score,
-  currentUser,
-  id,
-}) {
-  const commentOwner = Boolean(username === currentUser?.username);
+export default function SingleComment({ comment, currentUser }) {
+  const { user, createdAt, content, score, id } = comment;
+  const commentOwner = user.username === currentUser?.username;
   const [replyBack, setReplyBack] = useState({ state: false, uniqueID: '' });
   const [editCommentID, setEditCommentID] = useState(null);
 
   const { data, setData } = useContext(EditContext);
-  function mutateReply(comments, targetID, updater) {
-    for (const subComment of comments) {
-      if (subComment.id === targetID) {
-        if (subComment.replies) {
-          console.log('sucsess');
-          subComment.replies.push(updater);
-        }
-        if (!subComment.replies) {
-          console.log('fail');
-          subComment.replies = [];
-          subComment.replies.push(updater);
-        }
-        console.log(subComment.replies);
-        return true;
-      }
-      if (subComment.replies?.length) {
-        const found = mutateReply(subComment.replies, targetID, updater);
-        if (found) return true;
-      }
-    }
-    return false;
-  }
 
   function handleReplyMSG(formData) {
-    const replyData = formData.get('commentText');
-    console.log(replyData);
+    const replyData = formData.get('commentText')?.toString().trim();
     if (!replyData) return;
-    const replyDOBJ = {
-      id: JSON.stringify(new Date()),
-      content: replyData.toString().trim(),
+    const replyedObjectData = {
+      // id: JSON.stringify(new Date()),
+      // Using crypto.randomUUID() for better and secure random ID
+      id: crypto.randomUUID(),
+      content: replyData,
       createdAt: new Date().toLocaleTimeString(),
       score: 0,
-      replyingTo: username,
+      replyingTo: user.username,
       user: {
         image: {
           png: data.currentUser.image.png,
@@ -60,28 +33,29 @@ export default function SingleComment({
         username: data.currentUser.username,
       },
     };
-    const newDATA = { ...data };
-    mutateReply(newDATA.comments, replyBack.uniqueID, replyDOBJ);
-    setData(newDATA);
-    replyBack.state = false;
+    setData(prev => {
+      const newComments = mutateReply(
+        prev.comments,
+        replyBack.uniqueID,
+        replyedObjectData
+      );
+      return {
+        ...prev,
+        comments: newComments,
+      };
+    });
+    setReplyBack({ state: false, uniqueID: '' });
   }
   if (id === editCommentID)
     return (
-      <EditReply
-        img={img}
-        username={username}
-        createdAt={createdAt}
-        content={content}
-        id={id}
-        setEditCommentID={setEditCommentID}
-      />
+      <EditReply replyData={comment} setEditCommentID={setEditCommentID} />
     );
   return (
     <section className="single_Comment-Wrapper">
       <div className="single_Comment">
         <header className="comment__Header">
-          <img src={img} alt="" />
-          <h4>{username}</h4>
+          <img src={user.image.png} alt="" />
+          <h4>{user.username}</h4>
           <p>{createdAt}</p>
         </header>
         <article>{content}</article>
@@ -90,15 +64,12 @@ export default function SingleComment({
           {commentOwner ? (
             <EditCommentBTN setEditCommentID={setEditCommentID} id={id} />
           ) : (
-            <ReplyButton setReplyBack={setReplyBack} id={id}  />
+            <ReplyButton setReplyBack={setReplyBack} id={id} />
           )}
         </footer>
       </div>
       {replyBack.state ? (
-        <ReplyedMSGBox
-          handleReplyMSG={handleReplyMSG}
-          data={data}
-        />
+        <ReplyedMSGBox handleReplyMSG={handleReplyMSG} data={data} />
       ) : null}
     </section>
   );

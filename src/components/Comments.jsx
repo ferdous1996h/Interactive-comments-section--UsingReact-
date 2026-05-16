@@ -6,25 +6,17 @@ export default function Comments({ data }) {
   return (
     <>
       <section className="main_Comments">
-        {data?.comments
-          ? data?.comments.map(comment => (
-              <Fragment key={comment.id}>
-                <SingleComment
-                  img={comment.user.image.png}
-                  username={comment.user.username}
-                  createdAt={comment.createdAt}
-                  content={comment.content}
-                  score={comment.score}
-                  currentUser={data.currentUser}
-                  id={comment.id}
-                />
-                <ReplyThread
-                  replies={comment.replies}
-                  currentUser={data.currentUser}
-                />
-              </Fragment>
-            ))
-          : null}
+        {data?.comments?.length > 0 &&
+          data?.comments?.map(comment => (
+          <Fragment key={comment.id}>
+            <SingleComment comment={comment} currentUser={data.currentUser} />
+            <ReplyThread
+              replies={comment.replies}
+              currentUser={data.currentUser}
+            />
+          </Fragment>
+        ))}
+
       </section>
     </>
   );

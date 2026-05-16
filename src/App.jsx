@@ -25,13 +25,6 @@ export default function App() {
       };
     });
   }
-  // useEffect(() => {
-  //   secRef.current.scrollIntoView({
-  //     behavior: 'smooth',
-  //     block: 'end',
-  //   });
-  // }, [data.comments.length]);
-
   useEffect(() => {
     secRef.current.scrollIntoView({
       behavior: 'smooth',

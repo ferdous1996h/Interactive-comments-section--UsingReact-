@@ -1,3 +1,4 @@
+
 export default function SendMsg({ image, user, data, setData, scrollLast }) {
   function handleSendMSG(formData) {
     const msgData = formData.get('commentText').toString().trim();
@@ -5,7 +6,7 @@ export default function SendMsg({ image, user, data, setData, scrollLast }) {
     const commentDataNEW = {
       id: crypto.randomUUID(),
       content: msgData,
-      createdAt: new Date().toLocaleDateString(),
+      createdAt: new Date(),
       score: 0,
       user: {
         image: data.currentUser.image,

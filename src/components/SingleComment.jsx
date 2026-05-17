@@ -5,6 +5,7 @@ import EditCommentBTN from '../utils/EditCommentBTN';
 import ReplyedMSGBox from './ReplyedMSGBox';
 import EditReply from './EditReply';
 import mutateReply from '../utils/mutateReply';
+import timeGap from '../utils/timeGap';
 import { EditContext } from '../contexts/EditContext';
 export default function SingleComment({ comment, currentUser }) {
   const { user, createdAt, content, score, id } = comment;
@@ -22,7 +23,7 @@ export default function SingleComment({ comment, currentUser }) {
       // Using crypto.randomUUID() for better and secure random ID
       id: crypto.randomUUID(),
       content: replyData,
-      createdAt: new Date().toLocaleTimeString(),
+      createdAt: new Date(),
       score: 0,
       replyingTo: user.username,
       user: {
@@ -55,7 +56,7 @@ export default function SingleComment({ comment, currentUser }) {
         <header className="comment__Header">
           <img src={user.image.png} alt={`${user.username} avatar`} />
           <h4>{user.username}</h4>
-          <p>{createdAt}</p>
+          <p>{timeGap(createdAt)}</p>
         </header>
         <article>{content}</article>
         <footer>

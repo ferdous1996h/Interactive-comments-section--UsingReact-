@@ -29,19 +29,14 @@ Users should be able to:
 * **Bonus**: Instead of using the `createdAt` strings from the `data.json` file, try using timestamps and dynamically track the time since the comment or reply was posted.
 
 ### Screenshot
+|App Screenshoot|
+|---------------|
+|![Screenshoot](./public/images/screenshoot/Screenshot%20.png)|
 
-!\[](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
 
 ### Links
 
-* Solution URL: [Add solution URL here](https://your-solution-url.com)
-* Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+* Live Site URL: [Add live site URL here]()
 
 ## My process
 
@@ -53,13 +48,22 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 * CSS Grid
 * Mobile-first workflow
 * [React](https://reactjs.org/) - JS library
-* [Styled Components](https://styled-components.com/) - For styles
-
 
 
 ### What I learned
 
-- If new value depend on previous value or state always use ::Functional state updates::
 - helper function can be use as js not jsx because it doesn't contain any render content , just calculation
-- Never mutate state directly.
+- If new value depend on previous value or state always use functional update
+> Example==>
+  ```javascript
+  setData(prev => {
+      const newComment = deleteByID(prev.comments, deleteData);
+      return {
+        ...prev,
+        comments: newComment,
+      };
+    })
+  ```
 - Using crypto.randomUUID() for better and secure random ID
+- use **useCallback** prevent unnecessary creation of function in each render & memoize the function work  .And dependency change create again this function. Also using empty dependency as this function is not depend on data ,result or anyState
+- use **useMemo** so that in every render context provider doesn't provide new object , which causes consumers to rerender also

@@ -1,6 +1,7 @@
 import { EditContext } from '../contexts/EditContext';
 import { useContext } from 'react';
 import mutateNestedEdit from '../utils/mutateNestedEdit';
+import timeGap from '../utils/timeGap';
 export default function EditReply({ replyData, setEditCommentID }) {
   const { user, createdAt, content, id } = replyData;
   const {  setData } = useContext(EditContext);
@@ -23,14 +24,14 @@ export default function EditReply({ replyData, setEditCommentID }) {
         <header className="comment__Header">
           <img src={user.image.png} alt={`${user.username} avatar`} />
           <h4>{user.username}</h4>
-          <p>{createdAt}</p>
+          <p>{timeGap(createdAt)}</p>
         </header>
         <div className="editReplyWrapper">
           <form action={handleEditREPLY}>
             <textarea
               name="commentText"
               id="commentTextID"
-              aria-label='Edit your comment'
+              aria-label="Edit your comment"
               defaultValue={content}
             ></textarea>
             <button type="submit" className="updateComment">
